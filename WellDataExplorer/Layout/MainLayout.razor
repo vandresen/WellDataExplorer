@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@inject StateDictionary stateDictionary
+@inject StateWellCount stateWellCount
+@inject StateLoaderSource stateLoaderSource
+@implements IDisposable
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="5" class="d-flex align-center">
+        <MudText Typo="Typo.h5">Well Data Explorer</MudText>
+        <MudSpacer />
+    </MudAppBar>
+    <MudMainContent>
+        @if (svgContent != null)
+        {
+            @((MarkupString)svgContent)
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
+    </MudMainContent>
+</MudLayout>
+
