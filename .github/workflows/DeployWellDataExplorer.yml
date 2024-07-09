@@ -23,4 +23,10 @@ jobs:
         
       - name: Publish
         run: dotnet publish WellDataExplorer/WellDataExplorer.csproj --configuration Release -o ./publish --no-build --self-contained true
-        
+
+      - name: Deploy to Azure Storage Blob
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob upload-batch --account-name ${{ secrets.WEBEXPLORER_BLOB_STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.WEBEXPLORER_BLOB_STORAGE_ACCOUNT_KEY }} --destination \$web --source ./publish/wwwroot  --overwrite
