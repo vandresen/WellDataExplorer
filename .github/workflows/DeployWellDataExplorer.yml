@@ -29,4 +29,4 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az storage blob upload-batch --account-name ${{ secrets.WEBEXPLORER_BLOB_STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.WEBEXPLORER_BLOB_STORAGE_ACCOUNT_KEY }} --destination \$web --source ./publish/wwwroot  --overwrite
+            az storage blob upload-batch --account-name ${{ secrets.WELLDATAEXPLORER_BLOB_STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.WELLDATAEXPLORER_BLOB_STORAGE_ACCOUNT_KEY }} --destination \$web --source ./publish/wwwroot  --overwrite
