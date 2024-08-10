@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
+using Newtonsoft.Json;
+using System;
 using WellDataExplorer.Models;
 using WellDataExplorer.Pages;
+using static MudBlazor.Colors;
 
 namespace WellDataExplorer.Layout
 {
@@ -10,6 +13,7 @@ namespace WellDataExplorer.Layout
     {
         private string svgContent;
         private DotNetObjectReference<MainLayout>? dotNetHelper;
+        List<StateInfo> info;
 
         [Inject]
         private HttpClient Http { get; set; }
@@ -18,15 +22,23 @@ namespace WellDataExplorer.Layout
         {
             if (firstRender)
             {
-                foreach(var l in stateLoaderSource.StateLoaders)
+                try
                 {
-
+                    string url = @"https://welldataexplorer.blob.core.windows.net/explorerdata/StateInfo.json";
+                    HttpResponseMessage response = await Http.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    info = JsonConvert.DeserializeObject<List<StateInfo>>(jsonContent);
+                    var svgResponse = await Http.GetStringAsync("us.svg");
+                    svgContent = HighlightStates(svgResponse, "fill:yellow;stroke:red;stroke-width:2");
+                    StateHasChanged();
+                    dotNetHelper = DotNetObjectReference.Create(this);
+                    await JS.InvokeVoidAsync("registerStateClickEvents", dotNetHelper);
                 }
-                var svgResponse = await Http.GetStringAsync("us.svg");
-                svgContent = HighlightStates(svgResponse, new[] { "TX", "KS" }, "fill:yellow;stroke:red;stroke-width:2");
-                StateHasChanged();
-                dotNetHelper = DotNetObjectReference.Create(this);
-                await JS.InvokeVoidAsync("registerStateClickEvents", dotNetHelper);
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Request error: {e.Message}");
+                }
             }
         }
 
@@ -34,33 +46,30 @@ namespace WellDataExplorer.Layout
         public async void LogStateId(string stateId)
         {
             Console.WriteLine($"State code is {stateId}");
-            string stateFullName = GetStateFullName(stateId);
-            StateInfo stateInfo = new StateInfo();
-            stateInfo.WellCount = "Number of Wells: " + GetStateWellCount(stateId);
-            stateInfo.LoaderSource = "Loader source code: " + GetLoaderSource(stateId); ;
-            await OpenDialogAsync(stateFullName, stateInfo);
+            await OpenDialogAsync(stateId);
         }
 
-        private Task OpenDialogAsync(string stateFullName, StateInfo stateInfo)
+        private Task OpenDialogAsync(string stateId)
         {
             Console.WriteLine("Open Dialog");
+            StateInfo stateInfo = info.SingleOrDefault(s => s.StateId == stateId);
             var parameters = new DialogParameters<StateDialog>
             {
                 { x => x.Info, stateInfo }
             };
             var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
-            String dialogTitle = stateFullName;
+            String dialogTitle = stateInfo.StateFullName;
             return DialogService.ShowAsync<StateDialog>(dialogTitle, parameters, options);
         }
 
-        private string HighlightStates(string svg, string[] stateIds, string style)
+        private string HighlightStates(string svg, string style)
         {
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(svg);
 
-            foreach (var stateId in stateIds)
+            foreach (var state in info)
             {
-                var stateNode = xmlDoc.SelectSingleNode($"//*[@id='{stateId}']");
+                var stateNode = xmlDoc.SelectSingleNode($"//*[@id='{state.StateId}']");
                 if (stateNode != null)
                 {
                     var styleAttr = stateNode.Attributes["style"];
@@ -88,36 +97,6 @@ namespace WellDataExplorer.Layout
                 xmlTextWriter.Flush();
                 return stringWriter.GetStringBuilder().ToString();
             }
-        }
-
-        private string GetStateFullName(string stateId)
-        {
-            string stateFullName = "";
-            if (stateDictionary.States.TryGetValue(stateId, out var fullName))
-            {
-                stateFullName = fullName;
-            }
-            return stateFullName;
-        }
-
-        private string GetLoaderSource(string stateId)
-        {
-            string loaderSource = "N/A";
-            if (stateLoaderSource.StateLoaders.TryGetValue(stateId, out var name))
-            {
-                loaderSource = name;
-            }
-            return loaderSource;
-        }
-
-        private string GetStateWellCount(string stateId)
-        {
-            string stateCount = "N/A";
-            if (stateWellCount.WellCount.TryGetValue(stateId, out int count))
-            {
-                stateCount= count.ToString();
-            }
-            return stateCount;
         }
 
         public void Dispose()
