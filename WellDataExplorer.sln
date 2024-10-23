@@ -5,9 +5,11 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WellDataExplorer", "WellDataExplorer\WellDataExplorer.csproj", "{A30E7513-1203-46A0-A766-542C0053746B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColoradoExplorer", "ColoradoExplorer\ColoradoExplorer.csproj", "{A3BFD6DE-2F50-457B-9EBC-20D2CE117822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColoradoExplorer", "ColoradoExplorer\ColoradoExplorer.csproj", "{A3BFD6DE-2F50-457B-9EBC-20D2CE117822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExplorerLibrary", "ExplorerLibrary\ExplorerLibrary.csproj", "{FAF1743F-FD52-4F0E-9EB0-81F912BF83C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExplorerLibrary", "ExplorerLibrary\ExplorerLibrary.csproj", "{FAF1743F-FD52-4F0E-9EB0-81F912BF83C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexasExplorer", "TexasExplorer\TexasExplorer.csproj", "{C01632D2-9EA3-44C0-8804-2795380EC837}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FAF1743F-FD52-4F0E-9EB0-81F912BF83C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAF1743F-FD52-4F0E-9EB0-81F912BF83C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAF1743F-FD52-4F0E-9EB0-81F912BF83C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01632D2-9EA3-44C0-8804-2795380EC837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01632D2-9EA3-44C0-8804-2795380EC837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01632D2-9EA3-44C0-8804-2795380EC837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01632D2-9EA3-44C0-8804-2795380EC837}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
