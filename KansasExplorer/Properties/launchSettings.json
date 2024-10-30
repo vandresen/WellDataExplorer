@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KansasExplorer": {
+      "commandName": "Project",
+      "commandLineArgs": "-c \"DefaultEndpointsProtocol=https;AccountName=welldataexplorer;AccountKey=dSmHOrnV9LIruty6TC4ZJFICARUH7gRrtJLBhWykEHIEN42RHL4Fq8ByAeKFRa+hz8D+1r4+1hxV+AStKkxgGA==;EndpointSuffix=core.windows.net\""
+    }
+  }
+}

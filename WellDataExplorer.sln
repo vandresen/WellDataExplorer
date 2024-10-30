@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExplorerLibrary", "Explorer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexasExplorer", "TexasExplorer\TexasExplorer.csproj", "{C01632D2-9EA3-44C0-8804-2795380EC837}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KansasExplorer", "KansasExplorer\KansasExplorer.csproj", "{AB7ED54B-EBEC-423F-9ED1-061C995B2D8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C01632D2-9EA3-44C0-8804-2795380EC837}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C01632D2-9EA3-44C0-8804-2795380EC837}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C01632D2-9EA3-44C0-8804-2795380EC837}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB7ED54B-EBEC-423F-9ED1-061C995B2D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB7ED54B-EBEC-423F-9ED1-061C995B2D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB7ED54B-EBEC-423F-9ED1-061C995B2D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB7ED54B-EBEC-423F-9ED1-061C995B2D8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
